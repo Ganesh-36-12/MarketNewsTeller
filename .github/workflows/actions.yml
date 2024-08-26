@@ -27,3 +27,16 @@ jobs:
           API_KEY: ${{ secrets.API_KEY }}
           GROUP_ID: ${{ secrets.GROUP_ID }}
         run: python BT_news.py
+
+      - name: switching from HTTPS to SSH
+        run: git remote set-url origin ${{ secrets.ssh }}
+      - name: check for changes
+        run: git status
+      - name: stage changed files
+        run: git add .
+      - name: commit changed files
+        run: git commit -m "Auto updating json file"
+      - name: fetch from master
+        run: git fetch origin master
+      - name: push code to master
+        run: git push origin HEAD:master
