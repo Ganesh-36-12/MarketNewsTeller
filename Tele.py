@@ -31,4 +31,3 @@ def send_msg(text):
     else:
         logger.info(f"error occured with status code {r.status_code}")
 
-send_msg("Hello from github")
