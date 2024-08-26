@@ -2,12 +2,12 @@ import os
 import requests
 import json
 from bs4 import BeautifulSoup
-from datetime import datetime
+from datetime import datetime , timedelta
 from Tele import send_msg
 
 json_file = 'news_data.json'
 
-raw_time = datetime.now()
+raw_time = datetime.utcnow()+timedelta(hours=5,minutes=30)
 
 current_time = raw_time.strftime("%H:%M")
 
