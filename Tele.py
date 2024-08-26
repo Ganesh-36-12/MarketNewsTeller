@@ -23,11 +23,11 @@ except KeyError:
 
 base_url = f'https://api.telegram.org/bot{API_KEY}'
 
-def send_msg(text):  
+def send_msg(text,from_file):  
     text_send = f'{base_url}/sendMessage?chat_id={group_id}&text={text}'
     r = requests.get(text_send)
     if r.status_code == 200:
-        logger.info(f"Message Sent Successfully")
+        logger.info(f"Message Sent Successfully {from_file}")
     else:
         logger.info(f"error occured with status code {r.status_code}")
 
