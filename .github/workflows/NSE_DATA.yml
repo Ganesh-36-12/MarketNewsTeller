@@ -1,28 +1,23 @@
 name: Send nse_data
-
-on:
+'on':
   schedule:
     - cron: '*/3 * * * *'
-
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-        
       - name: setup python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.9' # install the python version needed
-          
+          python-version: '3.9'
       - name: install python packages
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
-          
-      - name: execute py script # run main.py
+      - name: execute py script
         env:
-          API_KEY: ${{ secrets.API_KEY }}
-          GROUP_ID: ${{ secrets.GROUP_ID }}
+          API_KEY: '${{ secrets.API_KEY }}'
+          GROUP_ID: '${{ secrets.GROUP_ID }}'
         run: python Nse_data.py
