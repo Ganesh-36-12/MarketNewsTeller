@@ -1,8 +1,9 @@
 name: run bt_news.py
 
 on:
-  schedule:
-    - cron: '0 9-18 * * mon-fri'
+  workflow_dispatch:
+  # schedule:
+  #   - cron: '0 9-18 * * mon-fri'
 
 jobs:
   build:
