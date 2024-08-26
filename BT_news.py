@@ -85,4 +85,4 @@ def string_builder(news):
     return final_string
     
 text = string_builder(news)
-send_msg(text)
+send_msg(text,"bt_news.py")
