@@ -1,9 +1,8 @@
-name: run tele.py
+name: Send nse_data
 
 on:
-  workflow_dispatch:
-  # schedule:
-  #   - cron: '0 9-18 * * mon-fri'
+  schedule:
+    - cron: '45 11 * * mon-fri'
 
 jobs:
   build:
