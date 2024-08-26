@@ -25,5 +25,5 @@ def india_VIX():
 msg = fiidii()
 vix = india_VIX()
 
-send_msg(msg)
-send_msg(vix)
+send_msg(msg,"nse_data.py")
+send_msg(vix,"nse_data.py")
