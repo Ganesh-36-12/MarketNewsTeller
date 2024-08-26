@@ -1,10 +1,11 @@
 import requests
+import os
 
-API_KEY = '7415761715:AAH9FEYkjn02fghc8g0kIJ6xwEveUe3MhWM'
+API_KEY = os.environ("API_KEY")
 
 base_url = f'https://api.telegram.org/bot{API_KEY}'
 
-group_id = -4590021123
+group_id = os.environ("GROUP_ID")
 
 def send_msg(text):  
     text_send = f'{base_url}/sendMessage?chat_id={group_id}&text={text}'
