@@ -2,7 +2,7 @@ name: Send nse_data
 
 on:
   schedule:
-    - cron: '30 17 * * *'
+    - cron: '*/3 * * * *'
 
 jobs:
   build:
