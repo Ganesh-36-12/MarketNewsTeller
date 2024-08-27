@@ -2,7 +2,7 @@ name: run bt_news.py
 'on':
   workflow_dispatch: null
   schedule:
-    - cron: '0 */2 * * mon-fri'
+    - cron: '0 3-13 * * mon-fri'
 jobs:
   build:
     runs-on: ubuntu-latest
