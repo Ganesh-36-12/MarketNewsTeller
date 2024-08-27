@@ -27,6 +27,7 @@ def load_json_data():
 
 def append_to_json(data):
     json_data = load_json_data()
+    print(json_data)
     if json_data and  json_data[-1].values()==data.values():
         return
     json_data.append(data)
@@ -85,4 +86,4 @@ def string_builder(news):
     return final_string
     
 text = string_builder(news)
-send_msg(text,"bt_news.py")
+#send_msg(text,"bt_news.py")
