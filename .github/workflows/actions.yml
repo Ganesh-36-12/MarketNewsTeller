@@ -19,6 +19,7 @@ jobs:
           pip install -r requirements.txt
       - name: execute py script
         env:
+          PYTHONUNBUFFERED: "1"
           API_KEY: '${{ secrets.API_KEY }}'
           GROUP_ID: '${{ secrets.GROUP_ID }}'
         run: python BT_news.py
