@@ -1,8 +1,10 @@
 import os
-from Tele import send_msg
+from Tele import send_msg,get_update
 
 arr = os.environ["TEST_ARRAY"]
 
 for i in arr:
   send_msg(str(i),"test.py")
 print("messages sent")
+
+print(get_update)
