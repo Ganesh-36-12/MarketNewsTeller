@@ -5,17 +5,30 @@ from datetime import datetime , timedelta
 from Tele import send_msg, log_event
 import sqlite3 as sq
 
-try:
-    conn = sq.connect('info_collector.db')
-    cursor = conn.cursor()
-    create_command = """
-    CREATE TABLE IF NOT EXISTS 
-    SCRAPED (NEWS STRING NOT NULL);
-    """
-    cursor.execute(create_command)
-except Exception as e:
-    print(e)
-    
+def create_db():
+    try:
+        conn = sq.connect('info_collector.db')
+        cursor = conn.cursor()
+        create_command = """
+        CREATE TABLE IF NOT EXISTS 
+        SCRAPED (NEWS STRING NOT NULL);
+        """
+        cursor.execute(create_command)
+    except Exception as e:
+        print(e)
+def insert_data_into_db(n_list):
+    try:
+        insert_command = """
+        INSERT INTO SCRAPED (NEWS) VALUES(?);
+        """
+        last = (n_list[0],)
+        cursor.execute(insert_command,last)
+        conn.commit()
+        log_event("Data inserted")
+    except Exception as e:
+        print(e)
+
+
 raw_time = datetime.utcnow()+timedelta(hours=5,minutes=30)
 
 current_time = raw_time.strftime("%H:%M")
@@ -47,18 +60,8 @@ def web_scrape(l_news=None):
                      return title_list
                  else:
                      title_list.append(title)
-    try:
-        insert_command = """
-        INSERT INTO SCRAPED (NEWS) VALUES(?);
-        """
-        last = (title_list[0],)
-        cursor.execute(insert_command,last)
-        conn.commit()
-        log_event("Data inserted")
+        insert_data_into_db(title_list)
         return title_list
-    except Exception as e:
-        print(e)
-        return None
 
 def hourly_news():
     try:
