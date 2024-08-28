@@ -7,4 +7,5 @@ for i in arr:
   send_msg(str(i),"test.py")
 print("messages sent")
 
-print(get_update)
+context = get_update()
+print(context)
