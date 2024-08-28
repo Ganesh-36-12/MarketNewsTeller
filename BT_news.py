@@ -54,7 +54,7 @@ def web_scrape(l_news=None):
         return title_list
     except Exception as e:
         print(e)
-        return None:
+        return None
 
 def hourly_news():
     try:
