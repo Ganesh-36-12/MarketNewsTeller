@@ -5,17 +5,17 @@ from datetime import datetime , timedelta
 from Tele import send_msg, log_event
 import sqlite3 as sq
 
-def create_db():
-    try:
-        conn = sq.connect('info_collector.db')
-        cursor = conn.cursor()
-        create_command = """
-        CREATE TABLE IF NOT EXISTS 
-        SCRAPED (NEWS STRING NOT NULL);
-        """
-        cursor.execute(create_command)
-    except Exception as e:
-        print(e)
+try:
+    conn = sq.connect('info_collector.db')
+    cursor = conn.cursor()
+    create_command = """
+    CREATE TABLE IF NOT EXISTS 
+    SCRAPED (NEWS STRING NOT NULL);
+    """
+    cursor.execute(create_command)
+except Exception as e:
+    print(e)
+    
 def insert_data_into_db(n_list):
     try:
         insert_command = """
@@ -44,7 +44,7 @@ r = requests.get(url=b_url,headers=headers)
 if(r.status_code==200):
     soup = BeautifulSoup(r.content, 'html.parser')
     job_cards = soup.find_all('div', class_='widget-listing-content-section')
-create_db()      
+  
 def web_scrape(l_news=None):
     title_list=[]
     for i in job_cards:
