@@ -20,6 +20,6 @@ jobs:
           PYTHONUNBUFFERED: "1"
           API_KEY: '${{ secrets.API_KEY }}'
           GROUP_ID: '${{ secrets.GROUP_ID }}'
-          TEST_ARRAY: '${{ env.TEST_ARRAY }}'
+          TEST_ARRAY: '${{ secrets.TEST_ARRAY }}'
         run: python test.py
       
