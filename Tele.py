@@ -28,11 +28,10 @@ base_url = f'https://api.telegram.org/bot{API_KEY}'
 def send_msg(text,from_file):  
     text_send = f'{base_url}/sendMessage?chat_id={group_id}&text={text}'
     r = requests.get(text_send)
-    print(r.status_code)
     if r.status_code == 200:
-        logger.info(f"Message Sent Successfully through {from_file}")
+        log_event(f"Message Sent Successfully through {from_file}")
     else:
-        logger.info(f"error occured with status code {r.status_code}")
+        log_event(f"error occured with status code {r.status_code}")
 def get_update():
     update = f'{base_url}/getUpdates'
     return update
