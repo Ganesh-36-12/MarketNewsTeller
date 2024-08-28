@@ -57,6 +57,7 @@ def web_scrape(l_news=None):
                  title = j.get('title')
                  if(title==l_news):
                      log_event(f"Old news detected... {l_news}")
+                     insert_data_into_db(title_list)
                      return title_list
                  else:
                      title_list.append(title)
