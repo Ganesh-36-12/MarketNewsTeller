@@ -1,8 +1,7 @@
-import os
 import requests
 from bs4 import BeautifulSoup
 from datetime import datetime , timedelta
-from Tele import send_msg, log_event
+from Tele import send_msg
 import sqlite3 as sq
 
 try:
@@ -24,7 +23,6 @@ def insert_data_into_db(n_list):
         last = (n_list[0],)
         cursor.execute(insert_command,last)
         conn.commit()
-        log_event("Data inserted")
     except Exception as e:
         print(e)
 
@@ -56,7 +54,6 @@ def web_scrape(l_news=None):
              for j in title_card:
                  title = j.get('title')
                  if(title==l_news):
-                     log_event(f"Old news detected... {l_news}")
                      insert_data_into_db(title_list)
                      return title_list
                  else:
@@ -70,7 +67,6 @@ def hourly_news():
         cursor.execute(fetch_command)
         records = cursor.fetchone()
         last = records[0]
-        log_event(f"last news fetched...{last}")
         return last
     except Exception as e:
         return " "
