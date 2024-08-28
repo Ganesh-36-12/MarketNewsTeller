@@ -60,8 +60,8 @@ def web_scrape(l_news=None):
                      return title_list
                  else:
                      title_list.append(title)
-        insert_data_into_db(title_list)
-        return title_list
+    insert_data_into_db(title_list)
+    return title_list
 
 def hourly_news():
     try:
