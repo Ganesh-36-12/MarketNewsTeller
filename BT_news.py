@@ -12,8 +12,8 @@ try:
     CREATE TABLE IF NOT EXISTS 
     SCRAPED (NEWS STRING NOT NULL);
     """
+    cursor.execute(create_command)
 except Exception as e:
-    print("While creating")
     print(e)
     
 raw_time = datetime.utcnow()+timedelta(hours=5,minutes=30)
@@ -53,6 +53,7 @@ def web_scrape(l_news=None):
         last = (title_list[0],)
         cursor.execute(insert_command,last)
         conn.commit()
+        print("Data inserted")
         return title_list
     except Exception as e:
         print(e)
@@ -83,4 +84,4 @@ def string_builder(news):
 cursor.close()
 text = string_builder(news)
 print(text)
-#send_msg(text,"bt_news.py")
+send_msg(text,"bt_news.py")
