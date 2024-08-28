@@ -62,7 +62,7 @@ def web_scrape(l_news=None):
 def hourly_news():
     try:
         fetch_command = """ SELECT NEWS FROM SCRAPED ORDER BY ROWID DESC LIMIT 1 """
-        cursor.execute(c3)
+        cursor.execute(fetch_command)
         records = cursor.fetchone()
         return records[0]
     except Exception as e:
