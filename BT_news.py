@@ -43,7 +43,7 @@ def web_scrape(l_news=None):
              for j in title_card:
                  title = j.get('title')
                  if(title==l_news):
-                     log_event("Old news detected...")
+                     log_event(f"Old news detected... {l_news}")
                      return title_list
                  else:
                      title_list.append(title)
@@ -65,8 +65,9 @@ def hourly_news():
         fetch_command = """ SELECT NEWS FROM SCRAPED ORDER BY ROWID DESC LIMIT 1 """
         cursor.execute(fetch_command)
         records = cursor.fetchone()
-        log_event("last news fetched...")
-        return records[0]
+        last = records[0]
+        log_event(f"last news fetched...{last}")
+        return last
     except Exception as e:
         return " "
 
