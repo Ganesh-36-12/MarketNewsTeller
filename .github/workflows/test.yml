@@ -17,6 +17,6 @@ jobs:
       - name: execute py script
         env:
           PYTHONUNBUFFERED: "1"
-          TEST_ARRAY: '${{ secrets.TEST_ARRAY }}'
+          TEST_ARRAY: '${{ env.TEST_ARRAY }}'
         run: python test.py
       
