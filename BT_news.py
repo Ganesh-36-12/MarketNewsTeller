@@ -44,7 +44,7 @@ r = requests.get(url=b_url,headers=headers)
 if(r.status_code==200):
     soup = BeautifulSoup(r.content, 'html.parser')
     job_cards = soup.find_all('div', class_='widget-listing-content-section')
-       
+create_db()      
 def web_scrape(l_news=None):
     title_list=[]
     for i in job_cards:
