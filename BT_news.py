@@ -2,7 +2,7 @@ import os
 import requests
 from bs4 import BeautifulSoup
 from datetime import datetime , timedelta
-from Tele import send_msg
+from Tele import send_msg, log_event
 import sqlite3 as sq
 
 try:
@@ -43,6 +43,7 @@ def web_scrape(l_news=None):
              for j in title_card:
                  title = j.get('title')
                  if(title==l_news):
+                     log_event("Old news detected...")
                      return title_list
                  else:
                      title_list.append(title)
@@ -53,7 +54,7 @@ def web_scrape(l_news=None):
         last = (title_list[0],)
         cursor.execute(insert_command,last)
         conn.commit()
-        print("Data inserted")
+        log_event("Data inserted")
         return title_list
     except Exception as e:
         print(e)
@@ -64,6 +65,7 @@ def hourly_news():
         fetch_command = """ SELECT NEWS FROM SCRAPED ORDER BY ROWID DESC LIMIT 1 """
         cursor.execute(fetch_command)
         records = cursor.fetchone()
+        log_event("last news fetched...")
         return records[0]
     except Exception as e:
         return " "
