@@ -10,9 +10,10 @@ try:
     cursor = conn.cursor()
     create_command = """
     CREATE TABLE IF NOT EXISTS 
-    SCRAPED(NEWS STRING NOT NULL);
+    SCRAPED (NEWS STRING NOT NULL);
     """
 except Exception as e:
+    print("While creating")
     print(e)
     
 raw_time = datetime.utcnow()+timedelta(hours=5,minutes=30)
@@ -59,7 +60,7 @@ def web_scrape(l_news=None):
 
 def hourly_news():
     try:
-        fetch_command = """ SELECT NEWS FROM SCRAPED ORDER BY ROWID DESC LIMIT 1"""
+        fetch_command = """ SELECT NEWS FROM SCRAPED ORDER BY ROWID DESC LIMIT 1 """
         cursor.execute(c3)
         records = cursor.fetchone()
         return records[0]
@@ -81,4 +82,5 @@ def string_builder(news):
 
 cursor.close()
 text = string_builder(news)
-send_msg(text,"bt_news.py")
+print(text)
+#send_msg(text,"bt_news.py")
