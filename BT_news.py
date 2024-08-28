@@ -50,7 +50,8 @@ def web_scrape(l_news=None):
         INSERT INTO SCRAPED (NEWS) VALUES(?);
         """
         last = (title_list[0],)
-        cursor.commit()
+        cursor.execute(inser_command,last)
+        conn.commit()
         return title_list
     except Exception as e:
         print(e)
