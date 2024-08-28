@@ -1,40 +1,27 @@
 import os
 import requests
-import json
 from bs4 import BeautifulSoup
 from datetime import datetime , timedelta
 from Tele import send_msg
+import sqlite3 as sq
 
-json_file = 'news_data.json'
-
+try:
+    conn = sq.connect('info_collector.db')
+    cursor = conn.cursor()
+    create_command = """
+    CREATE TABLE IF NOT EXISTS 
+    SCRAPED(NEWS STRING NOT NULL);
+    """
+except Exception as e:
+    print(e)
+    
 raw_time = datetime.utcnow()+timedelta(hours=5,minutes=30)
 
 current_time = raw_time.strftime("%H:%M")
-
 current_hour = raw_time.strftime("%I %p")
 current_date = raw_time.strftime("%b %d, %Y")
 
 b_url ='https://www.businesstoday.in/markets/company-stock'
-
-def create_json_file():
-    if not os.path.exists(json_file):
-        with open(json_file, 'w') as file:
-            json.dump([], file)  
-            
-def load_json_data():
-    with open(json_file, 'r') as file:
-        return json.load(file)
-
-def append_to_json(data):
-    json_data = load_json_data()
-    print(json_data)
-    if json_data and  json_data[-1].values()==data.values():
-        return
-    json_data.append(data)
-    with open(json_file, 'w') as file:
-        json.dump(json_data, file, indent=4)
-
-create_json_file()
 
 headers = {'User-Agent': "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.135 Safari/537.36 Edge/12.246"}
 
@@ -58,19 +45,25 @@ def web_scrape(l_news=None):
                      return title_list
                  else:
                      title_list.append(title)
-    data = {}
-    data[current_time]=title_list[0]
-    append_to_json(data)
-    return title_list
+    try:
+        insert_command = """
+        INSERT INTO SCRAPED (NEWS) VALUES(?);
+        """
+        last = (title_list[0],)
+        cursor.commit()
+        return title_list
+    except Exception as e:
+        print(e)
+        return None:
 
 def hourly_news():
-   json_data = load_json_data()
-   if json_data:
-       my_dict = json_data[-1]
-       last_key, last_value = next(reversed(my_dict.items())) 
-   else:
-       last_value = None
-   return last_value
+    try:
+        fetch_command = """ SELECT NEWS FROM SCRAPED ORDER BY ROWID DESC LIMIT 1"""
+        cursor.execute(c3)
+        records = cursor.fetchone()
+        return records[0]
+    except Exception as e:
+        return " "
 
 old_news=hourly_news()
 news = web_scrape(l_news=old_news)
@@ -84,6 +77,7 @@ def string_builder(news):
     else:
         final_string += 'No news update'
     return final_string
-    
+
+cursor.close()
 text = string_builder(news)
 send_msg(text,"bt_news.py")
