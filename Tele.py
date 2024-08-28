@@ -11,7 +11,7 @@ logger_file_handler = logging.handlers.RotatingFileHandler(
     backupCount=1,
     encoding="utf8",
 )
-formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
+formatter = logging.Formatter("%(asctime)s - %(message)s")
 logger_file_handler.setFormatter(formatter)
 logger.addHandler(logger_file_handler)
 
@@ -28,7 +28,7 @@ def send_msg(text,from_file):
     r = requests.get(text_send)
     print(r.status_code)
     if r.status_code == 200:
-        logger.info(f"Message Sent Successfully {from_file}")
+        logger.info(f"Message Sent Successfully through {from_file}")
     else:
         logger.info(f"error occured with status code {r.status_code}")
 def get_update():
