@@ -21,7 +21,7 @@ jobs:
         env:
           PYTHONUNBUFFERED: "1"
           API_KEY: '${{ secrets.API_KEY }}'
-          GROUP_ID: '${{ secrets.GROUP_ID }}'
+          GROUP_ID: '${{ secrets.METRICS_CHANNEL_ID }}'
         run: python BT_news.py
       - name: commit files
         run: >
