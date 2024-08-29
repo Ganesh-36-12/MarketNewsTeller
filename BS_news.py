@@ -6,6 +6,7 @@ import sqlite3 as sq
 
 raw_time = datetime.utcnow()+timedelta(hours=5,minutes=30)
 current_time = raw_time.strftime("%H:%M")
+current_hour = raw_time.strftime("%I %p")
 current_hour_unix = raw_time.strftime("%-I")
 current_hour_windows = raw_time.strftime("%#I")
 AM_PM = raw_time.strftime("%p")
