@@ -78,6 +78,6 @@ for i in range(1,4):
   temp = website(url)
   news_list.extend(temp)
 
-text = string_builder(news)
+text = string_builder(news_list)
 print(text)
 send_msg(text,"BS_news.py")
