@@ -2,6 +2,7 @@ import requests
 import os
 import logging
 import logging.handlers
+from Database import *
 
 def log_event(msg):
     logger = logging.getLogger(__name__)
@@ -32,6 +33,28 @@ def send_msg(text,from_file):
         log_event(f"Message Sent Successfully through {from_file}")
     else:
         log_event(f"error occured with status code {r.status_code}")
+
 def get_update():
     update = f'{base_url}/getUpdates'
     return update
+
+def forward_msg():
+    last_id = fetch_last_id("last_id")
+    chat_id = os.environ["METRICS_GROUP_ID"]
+    from_id = os.environ["METRICS_CHANNEL_ID"]
+    messages = fetch_all_id(last_id[0])
+    converted = json.dumps(messages)
+
+    params = {
+      'chat_id' : chat_id,
+      'from_chat_id' : from_id,
+      'message_ids' : converted,
+      'protect_content' : True
+    }
+    forward = f"{base_url}/forwardMessages"
+    response = requests.get(url = forward, params = params)
+    
+    if response.status_code==200:
+        log_event(f"Message forwarded Successfully")
+    else:
+        log_event(f"error occured with status code {r.status_code}")
