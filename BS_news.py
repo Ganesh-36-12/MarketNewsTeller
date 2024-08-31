@@ -81,4 +81,4 @@ for i in range(1,4):
 
 text = string_builder(news_list)
 print(text)
-send_msg(text,"BS_news.py")
+send_msg(text,"Business standard")
