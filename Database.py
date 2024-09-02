@@ -58,9 +58,9 @@ def insert_data_into_db(table_name,tuple):
   except Exception as e:
     print(e)
 
-def fetch_old_news():
+def fetch_old_news(table_name):
   try:
-      fetch_command = """ SELECT NEWS FROM SCRAPED ORDER BY ROWID DESC LIMIT 1 """
+      fetch_command = f" SELECT NEWS FROM {table_name} ORDER BY ROWID DESC LIMIT 1 "
       cursor.execute(fetch_command)
       records = cursor.fetchone()
       old_news = records[0]
