@@ -7,39 +7,62 @@ def create_tables():
       last_id
   '''
   try:
-    conn = sq.connect('Meta.db')
+    conn = sq.connect('info_collector.db')
     cursor = conn.cursor()
+    
     create_command_1 = """
+    CREATE TABLE IF NOT EXISTS 
+    SCRAPED (NEWS STRING NOT NULL);
+    """
+    cursor.execute(create_command_1)
+    
+    create_command_2 = """
     CREATE TABLE IF NOT EXISTS 
     meta_data (message_id integer not null,
     group_id integer not null
     );
     """
-    cursor.execute(create_command_1)
-    create_command_2 = """
+    cursor.execute(create_command_2)
+    
+    create_command_3 = """
     CREATE TABLE IF NOT EXISTS 
     last_id (message_id integer not null
     );
     """
-    cursor.execute(create_command_2)
+    cursor.execute(create_command_3)
   except Exception as e:
     print(e)
 
-def insert_data_into_db(tuple):
+def insert_data_into_db(table_name,tuple):
   '''
-  INPUT : tuple of msg_id and group_id
-  TABLE : meta_data
+  INPUT : table name and data int the form of tuple or list
   '''
   try:
-    insert_command = """
-    INSERT INTO meta_data (message_id,group_id) VALUES(?,?);
-    """
-    data = (tuple[0],tuple[1])
+    if table_name == "meta_data":
+      insert_command = f"INSERT INTO {table_name} (message_id,group_id) VALUES(?,?);"
+      data = tuple
+    elif table_name == "last_id":
+      insert_command = f"INSERT INTO {table_name} (message_id) VALUES(?);"
+      data = (tuple[0],)
+    elif table_name == "scraped":
+      inser_command = f"INSERT INTO {table_name} (NEWS) VALUES(?);"
+      data = (tuple[0],)
     cursor.execute(insert_command,data)
     conn.commit()
   except Exception as e:
     print(e)
 
+def fetch_old_news():
+  try:
+      fetch_command = """ SELECT NEWS FROM SCRAPED ORDER BY ROWID DESC LIMIT 1 """
+      cursor.execute(fetch_command)
+      records = cursor.fetchone()
+      old_news = records[0]
+      return old_news
+  except Exception as e:
+      print(e)
+      return " "
+      
 def fetch_last_id(table_name):
   '''
   INPUT : name of the table
@@ -55,7 +78,7 @@ def fetch_last_id(table_name):
 
 def fetch_all_id(id):
   '''
-  INPUT : msg_id
+  INPUT : start msg_id
   OUTPUT: list of msg_ids
   '''  
   try:
