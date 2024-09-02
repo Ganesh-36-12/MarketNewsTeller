@@ -4,6 +4,8 @@ import logging
 import logging.handlers
 from Database import *
 
+create_tables()
+
 def log_event(msg):
     logger = logging.getLogger(__name__)
     logger.setLevel(logging.DEBUG)
@@ -26,11 +28,23 @@ except KeyError:
 
 base_url = f'https://api.telegram.org/bot{API_KEY}'
 
+def meta_data_collector(response):
+  json_data = response.json()
+  Message_id = json_data["result"]["message_id"]
+  Group_id = json_data["result"]["chat"]["id"]
+  temp = (Message_id, Group_id)
+  insert_data_into_db("meta_data",temp)
+
 def send_msg(text,from_file):  
-    text_send = f'{base_url}/sendMessage?chat_id={group_id}&text={text}'
-    r = requests.get(text_send)
+    text_send = f'{base_url}/sendMessage'
+    params = {
+        'chat_id' : group_id,
+        'text' : text
+    }
+    r = requests.get(url = text_send, params =params)
     if r.status_code == 200:
         log_event(f"Message Sent Successfully through {from_file}")
+        meta_data_collector(r)
     else:
         log_event(f"error occured with status code {r.status_code}")
 
