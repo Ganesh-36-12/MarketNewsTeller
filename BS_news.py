@@ -55,12 +55,9 @@ def string_builder(news):
     return final_string
 
 
-news_list =[]
-for i in range(1,4):
-    url = f"https://www.business-standard.com/markets/news/page-{i}"
-    temp = website(url)
-    news_list.extend(temp)
-    insert_data_into_db("scraped",news_list)
+url = f"https://www.business-standard.com/markets/news"
+news_list = website(url)
+insert_data_into_db("scraped",news_list)
     
 
 text = string_builder(news_list)
