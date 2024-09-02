@@ -22,7 +22,7 @@ jobs:
         env:
           PYTHONUNBUFFERED: '1'
           FORWARDER_API_KEY: '${{ secrets.FORWARDER_API_KEY }}'
-          METRICS_GROUP_ID: '${{ secrets.METRICS_GROUP_ID }}'
+          METRICS_GROUP_ID: '${{ secrets.GROUP_ID }}'
           METRICS_CHANNEL_ID: '${{ secrets.METRICS_CHANNEL_ID }}'
         run: python forwarder.py
       - name: commit files
