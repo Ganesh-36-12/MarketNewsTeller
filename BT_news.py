@@ -2,30 +2,9 @@ import requests
 from bs4 import BeautifulSoup
 from datetime import datetime , timedelta
 from Tele import send_msg
-import sqlite3 as sq
+from Database import *
 
-try:
-    conn = sq.connect('info_collector.db')
-    cursor = conn.cursor()
-    create_command = """
-    CREATE TABLE IF NOT EXISTS 
-    SCRAPED (NEWS STRING NOT NULL);
-    """
-    cursor.execute(create_command)
-except Exception as e:
-    print(e)
-    
-def insert_data_into_db(n_list):
-    try:
-        insert_command = """
-        INSERT INTO SCRAPED (NEWS) VALUES(?);
-        """
-        last = (n_list[0],)
-        cursor.execute(insert_command,last)
-        conn.commit()
-    except Exception as e:
-        print(e)
-
+create_tables()
 
 raw_time = datetime.utcnow()+timedelta(hours=5,minutes=30)
 
@@ -54,24 +33,14 @@ def web_scrape(l_news=None):
              for j in title_card:
                  title = j.get('title')
                  if(title==l_news):
-                     insert_data_into_db(title_list)
+                     insert_data_into_db("scraped",title_list)
                      return title_list
                  else:
                      title_list.append(title)
-    insert_data_into_db(title_list)
+    insert_data_into_db("scraped",title_list)
     return title_list
 
-def hourly_news():
-    try:
-        fetch_command = """ SELECT NEWS FROM SCRAPED ORDER BY ROWID DESC LIMIT 1 """
-        cursor.execute(fetch_command)
-        records = cursor.fetchone()
-        last = records[0]
-        return last
-    except Exception as e:
-        return " "
-
-old_news=hourly_news()
+old_news=fetch_old_news()
 news = web_scrape(l_news=old_news)
 
 
@@ -87,4 +56,4 @@ def string_builder(news):
 cursor.close()
 text = string_builder(news)
 print(text)
-send_msg(text,"bt_news.py")
+send_msg(text,"BUsiness Today")
