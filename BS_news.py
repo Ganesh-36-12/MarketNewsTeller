@@ -57,7 +57,6 @@ def string_builder(news):
 
 url = f"https://www.business-standard.com/markets/news"
 news_list = website(url)
-insert_data_into_db("scraped",news_list)
     
 
 text = string_builder(news_list)
