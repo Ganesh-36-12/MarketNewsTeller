@@ -44,8 +44,7 @@ def fetch_old_news(table_name):
     conn,cursor = get_connection()
     fetch_command = f" SELECT NEWS FROM {table_name} ORDER BY ROWID DESC LIMIT 1 "
     records=cursor.execute(fetch_command).fetchone()
-    cursor.close()
-    if records:
+    if len(records)!=0:
       old_news = records[0]
       return old_news
     else:
