@@ -1,4 +1,4 @@
-name: run bs_news.py
+name: forward messages
 'on':
   push:
     paths:
