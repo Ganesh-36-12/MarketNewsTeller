@@ -4,7 +4,7 @@ from datetime import datetime , timedelta
 from Tele import send_msg
 from Database import *
 
-create_tables()
+cursor = create_tables()
 
 raw_time = datetime.utcnow()+timedelta(hours=5,minutes=30)
 
