@@ -2,9 +2,7 @@ name: run bs_news.py
 'on':
   push:
     paths:
-      - BS_news.py
-      - BT_news.py
-      - Nse_data.py
+      - info_collector.db
 
 jobs:
   build:
