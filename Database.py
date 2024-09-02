@@ -22,7 +22,7 @@ def create_tables():
     );
     """
     cursor.execute(create_command_2)
-except Exception as e:
+  except Exception as e:
     print(e)
 
 def insert_data_into_db(tuple):
