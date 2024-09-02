@@ -4,8 +4,6 @@ import logging
 import logging.handlers
 from Database import *
 
-cursor = create_tables()
-
 def log_event(msg):
     logger = logging.getLogger(__name__)
     logger.setLevel(logging.DEBUG)
