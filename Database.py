@@ -1,44 +1,37 @@
 import sqlite3 as sq
 
-def create_tables():
-  '''
-  Create two tables named
-      meta_data
-      last_id
-  '''
-  try:
-    conn = sq.connect('info_collector.db')
-    cursor = conn.cursor()
-    
-    create_command_1 = """
-    CREATE TABLE IF NOT EXISTS 
-    SCRAPED (NEWS STRING NOT NULL);
-    """
-    cursor.execute(create_command_1)
-    
-    create_command_2 = """
-    CREATE TABLE IF NOT EXISTS 
-    meta_data (message_id integer not null,
-    group_id integer not null
-    );
-    """
-    cursor.execute(create_command_2)
-    
-    create_command_3 = """
-    CREATE TABLE IF NOT EXISTS 
-    last_id (message_id integer not null
-    );
-    """
-    cursor.execute(create_command_3)
+try:
+  conn = sq.connect('info_collector.db')
+  cursor = conn.cursor()
+  
+  create_command_1 = """
+  CREATE TABLE IF NOT EXISTS 
+  SCRAPED (NEWS STRING NOT NULL);
+  """
+  cursor.execute(create_command_1)
+  
+  create_command_2 = """
+  CREATE TABLE IF NOT EXISTS 
+  meta_data (message_id integer not null,
+  group_id integer not null
+  );
+  """
+  cursor.execute(create_command_2)
+  
+  create_command_3 = """
+  CREATE TABLE IF NOT EXISTS 
+  last_id (message_id integer not null
+  );
+  """
+  cursor.execute(create_command_3)
 
-    create_command_4 = """
-    CREATE TABLE IF NOT EXISTS 
-    BS_SCRAPED (news string not null);
-    """
-    cursor.execute(create_command_4)
-    return cursor
-  except Exception as e:
-    print(e)
+  create_command_4 = """
+  CREATE TABLE IF NOT EXISTS 
+  BS_SCRAPED (news string not null);
+  """
+  cursor.execute(create_command_4)
+except Exception as e:
+  print(e)
 
 def insert_data_into_db(table_name,tuple):
   '''
