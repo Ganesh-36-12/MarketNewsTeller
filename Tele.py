@@ -50,14 +50,12 @@ def get_update():
     update = f'{base_url}/getUpdates'
     return update
 
-def forward_msg():
+def forward_msg(base_url,chat_id,from_id):
     last_id = fetch_last_id("last_id")
     if last_id:
         id = last_id[0]
     else:
         id = 189
-    chat_id = os.environ["METRICS_GROUP_ID"]
-    from_id = os.environ["METRICS_CHANNEL_ID"]
     messages = fetch_all_id(id)
     converted = json.dumps(messages)
 
