@@ -40,7 +40,7 @@ def web_scrape(l_news=None):
     insert_data_into_db("scraped",title_list)
     return title_list
 
-old_news=fetch_old_news()
+old_news=fetch_old_news("scraped")
 news = web_scrape(l_news=old_news)
 
 
