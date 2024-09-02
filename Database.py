@@ -30,6 +30,12 @@ def create_tables():
     );
     """
     cursor.execute(create_command_3)
+
+    create_command_4 = """
+    CREATE TABLE IF NOT EXISTS 
+    BS_SCRAPED (news string not null);
+    """
+    cursor.execute(create_command_4)
   except Exception as e:
     print(e)
 
