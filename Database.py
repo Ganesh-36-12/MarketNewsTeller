@@ -36,6 +36,7 @@ def create_tables():
     BS_SCRAPED (news string not null);
     """
     cursor.execute(create_command_4)
+    return cursor
   except Exception as e:
     print(e)
 
