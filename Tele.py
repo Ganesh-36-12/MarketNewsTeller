@@ -52,9 +52,13 @@ def get_update():
 
 def forward_msg():
     last_id = fetch_last_id("last_id")
+    if last_id:
+        id = last_id[0]
+    else:
+        id = 189
     chat_id = os.environ["METRICS_GROUP_ID"]
     from_id = os.environ["METRICS_CHANNEL_ID"]
-    messages = fetch_all_id(last_id[0])
+    messages = fetch_all_id(id)
     converted = json.dumps(messages)
 
     params = {
@@ -68,5 +72,6 @@ def forward_msg():
     
     if response.status_code==200:
         log_event(f"Message forwarded Successfully")
+        final_commit()
     else:
         log_event(f"error occured with status code {r.status_code}")
