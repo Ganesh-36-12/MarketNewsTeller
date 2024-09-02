@@ -12,7 +12,7 @@ current_hour_windows = raw_time.strftime("%#I")
 AM_PM = raw_time.strftime("%p")
 current_date = raw_time.strftime("%d %b %Y")
 
-create_tables()
+cursor = create_tables()
 
 def website(site_url):
     headers = {
