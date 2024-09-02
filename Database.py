@@ -50,7 +50,7 @@ def insert_data_into_db(table_name,tuple):
     elif table_name == "last_id":
       insert_command = f"INSERT INTO {table_name} (message_id) VALUES(?);"
       data = (tuple[0],)
-    elif table_name == "scraped":
+    elif table_name == "scraped" or table_name == "BS_SCRAPED":
       inser_command = f"INSERT INTO {table_name} (NEWS) VALUES(?);"
       data = (tuple[0],)
     cursor.execute(insert_command,data)
