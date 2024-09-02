@@ -4,7 +4,6 @@ from datetime import datetime , timedelta
 from Tele import send_msg
 from Database import *
 
-cursor = create_tables()
 
 raw_time = datetime.utcnow()+timedelta(hours=5,minutes=30)
 
@@ -56,4 +55,4 @@ def string_builder(news):
 cursor.close()
 text = string_builder(news)
 print(text)
-send_msg(text,"BUsiness Today")
+send_msg(text,"Business Today")
