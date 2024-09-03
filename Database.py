@@ -56,19 +56,22 @@ def fetch_old_news(table_name):
     cursor.close()
     conn.close()
 
-def insert_data_into_db(table_name,tuple):
+def insert_data_into_db(table_name,data_list):
   try:
     conn,cursor = get_connection()
     insert_command = ""
     if table_name.lower() == "meta_data":
       insert_command = f"INSERT INTO {table_name} (message_id,group_id) VALUES(?,?);"
-      data = tuple
+      data = tuple(data_list)
     elif table_name.lower() == "last_id":
       insert_command = f"INSERT INTO {table_name} (message_id) VALUES(?);"
-      data = (tuple[0],)
+      data = (data_list[0],)
     elif table_name.lower() == "scraped" or table_name.lower() == "bs_scraped":
       insert_command = f"INSERT INTO {table_name} (NEWS) VALUES(?);"
-      data = (tuple[0],)
+      if data_list[0].startswith("Stock Market LIVE Updates:"):
+        data = (data_list[1],)
+      else:
+        data = (data_list[0],)
     cursor.execute(insert_command,data)
     conn.commit()
   except Exception as e:
