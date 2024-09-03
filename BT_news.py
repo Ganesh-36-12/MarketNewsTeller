@@ -52,7 +52,7 @@ def string_builder(news):
         final_string += 'No news update'
     return final_string
 
-cursor.close()
+
 text = string_builder(news)
 print(text)
 send_msg(text,"Business Today")
