@@ -55,7 +55,7 @@ def forward_msg(base_url,chat_id,from_id):
     if last_id:
         id = last_id[0]
     else:
-        id = 189
+        id = 128
     messages = fetch_all_id(id)
     converted = json.dumps(messages)
 
