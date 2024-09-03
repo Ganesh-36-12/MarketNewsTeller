@@ -12,4 +12,7 @@ except KeyError:
 
 base_url = f'https://api.telegram.org/bot{FORWARDER_API_KEY}'
 
-forward_msg(base_url,METRICS_GROUP_ID,METRICS_CHANNEL_ID)
+try:
+  forward_msg(base_url,METRICS_GROUP_ID,METRICS_CHANNEL_ID)
+except Exception as e:
+  print(e)
