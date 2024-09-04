@@ -50,26 +50,4 @@ def get_update():
     update = f'{base_url}/getUpdates'
     return update
 
-def forward_msg(base_url,chat_id,from_id):
-    last_id = fetch_last_id("last_id")
-    if last_id:
-        id = last_id[0]
-    else:
-        id = 128
-    messages = fetch_all_id(id)
-    converted = json.dumps(messages)
 
-    params = {
-      'chat_id' : chat_id,
-      'from_chat_id' : from_id,
-      'message_ids' : converted,
-      'protect_content' : True
-    }
-    forward = f"{base_url}/forwardMessages"
-    response = requests.get(url = forward, params = params)
-    
-    if response.status_code==200:
-        log_event(f"Message forwarded Successfully")
-        final_commit()
-    else:
-        log_event(f"error occured with status code {r.status_code}")
