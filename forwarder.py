@@ -41,7 +41,7 @@ def forward_msg(f_url,chat_id,from_id):
     log_event(f"Message forwarded Successfully")
     final_commit()
   else:
-    log_event(f"error occured with status code {r.status_code}")
+    log_event(f"error occured with status code {response.status_code}")
     
 try:
   FORWARDER_API_KEY = os.environ["FORWARDER_API_KEY"]
