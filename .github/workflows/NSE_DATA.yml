@@ -21,6 +21,13 @@ jobs:
           API_KEY: '${{ secrets.API_KEY }}'
           GROUP_ID: '${{ secrets.METRICS_CHANNEL_ID }}'
         run: python Nse_data.py
+      - name: forward messages
+        env:
+          PYTHONUNBUFFERED: "1"
+          FORWARDER_API_KEY: '${{ secrets.FORWARDER_API_KEY }}'
+          METRICS_GROUP_ID:  '${{ secrets.METRICS_GROUP_ID }}'
+          METRICS_CHANNEL_ID:  '${{ secrets.METRICS_CHANNEL_ID }}'
+        run: python forwarder.py
       - name: commit files
         run: >
           git config --local user.email "action@github.com"
