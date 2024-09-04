@@ -22,7 +22,7 @@ try:
     API_KEY = os.environ["API_KEY"]
     group_id = os.environ["GROUP_ID"]
 except KeyError:
-    logger.info("Token not available!")
+    log_event("Token not available!")
 
 base_url = f'https://api.telegram.org/bot{API_KEY}'
 
