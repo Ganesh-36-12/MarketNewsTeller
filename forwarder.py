@@ -2,6 +2,7 @@ import os
 import requests
 import logging
 import logging.handlers
+from Database import *
 
 def log_event(msg):
     logger = logging.getLogger(__name__)
