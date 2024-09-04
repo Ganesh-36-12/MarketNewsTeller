@@ -1,6 +1,6 @@
 import os
 import requests
-from Tele import *
+from Tele import forward_msg
 from Database import *
 
 try:
@@ -8,7 +8,7 @@ try:
   METRICS_GROUP_ID = os.environ["METRICS_GROUP_ID"]
   METRICS_CHANNEL_ID = os.environ["METRICS_CHANNEL_ID"]
 except KeyError:
-  logger.info("Token not available!")
+  print(KeyError) 
 
 base_url = f'https://api.telegram.org/bot{FORWARDER_API_KEY}'
 
