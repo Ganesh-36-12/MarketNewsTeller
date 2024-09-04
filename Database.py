@@ -88,7 +88,7 @@ def fetch_last_id(table_name):
   '''  
   try:
     conn,cursor = get_connection()
-    fetch_command_1 = f"SELECT message_id FROM {table_name} ORDER BY rowid DESC LIMIT 1;"
+    fetch_command_1 = f"SELECT rowid FROM {table_name} ORDER BY rowid DESC LIMIT 1;"
     cursor.execute(fetch_command_1)
     record = cursor.fetchone()
     return record
@@ -105,7 +105,7 @@ def fetch_all_id(id):
   '''  
   try:
     conn,cursor = get_connection()
-    fetch_command_2 = f"Select message_id from meta_data where message_id > {id}"
+    fetch_command_2 = f"Select message_id from meta_data where rowid > {id} and group_id = -1002183045099"
     cursor.execute(fetch_command_2)
     records = cursor.fetchall()
     list1 =[x[0] for x in records]
