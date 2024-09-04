@@ -88,7 +88,7 @@ def fetch_last_id(table_name):
   '''  
   try:
     conn,cursor = get_connection()
-    fetch_command_1 = f"SELECT rowid FROM {table_name} ORDER BY rowid DESC LIMIT 1;"
+    fetch_command_1 = f"SELECT message_id FROM {table_name} ORDER BY rowid DESC LIMIT 1;"
     cursor.execute(fetch_command_1)
     record = cursor.fetchone()
     return record
