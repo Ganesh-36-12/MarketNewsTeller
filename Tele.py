@@ -46,6 +46,38 @@ def send_msg(text,from_file):
     else:
         log_event(f"error occured with status code {r.status_code}")
 
+def send_styled_msg(news_string,from_file):
+    s_url = f'{base_url}/sendMessage'
+    params = {
+      'chat_id':group_id,
+      'text': news_string,
+      'parse_mode': 'MarkdownV2'
+    }
+    msg_resp = requests.get(url=s_url,params = params)
+    if msg_resp.status_code == 200:
+        log_event(f"Styled Message Sent Successfully through {from_file}")
+        meta_data_collector(r)
+    else:
+        log_event(f"error occured with status code {msg_resp.status_code}")
+        print(msg_resp.text)
+
+def send_photo(data_dict,from_file):
+    p_url = f'{base_url}/sendPhoto'
+    for k,v in data_dict.items():
+        params = {
+            'chat_id':group_id,
+            'caption': k,
+            'photo': v,
+            'parse_mode': 'MarkdownV2'
+        }
+        photo_resp = requests.get(url=p_url,params = params)
+        if photo_resp.status_code == 200:
+            log_event(f"Photo Sent Successfully through {from_file}")
+            meta_data_collector(r)
+        else:
+            log_event(f"error occured with status code {photo_resp.status_code}")
+            print(photo_resp.text)
+            
 def get_update():
     update = f'{base_url}/getUpdates'
     return update
