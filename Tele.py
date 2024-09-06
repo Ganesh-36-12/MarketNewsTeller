@@ -56,7 +56,7 @@ def send_styled_msg(news_string,from_file):
     msg_resp = requests.get(url=s_url,params = params)
     if msg_resp.status_code == 200:
         log_event(f"Styled Message Sent Successfully through {from_file}")
-        meta_data_collector(r)
+        meta_data_collector(msg_resp)
     else:
         log_event(f"error occured with status code {msg_resp.status_code}")
         print(msg_resp.text)
@@ -73,7 +73,7 @@ def send_photo(data_dict,from_file):
         photo_resp = requests.get(url=p_url,params = params)
         if photo_resp.status_code == 200:
             log_event(f"Photo Sent Successfully through {from_file}")
-            meta_data_collector(r)
+            meta_data_collector(photo_resp)
         else:
             log_event(f"error occured with status code {photo_resp.status_code}")
             print(photo_resp.text)
