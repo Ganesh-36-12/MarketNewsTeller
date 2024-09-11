@@ -71,7 +71,7 @@ def f_o_ban(soup):
 raw_time = datetime.utcnow()+timedelta(hours=5,minutes=30)
 current_date = raw_time.strftime("%B %d, %Y")
 
-query = "money control top 15 things to do latest"
+query = "moneycontrol top 15 things to do latest"
 
 results = search(query=query,num=1,stop=1)
 
@@ -94,7 +94,7 @@ def string_builder(soup):
   final += content_dict["bank_nifty"]["support"] + "\n\n"
   return final
 
-if todayArticle:
+if todayArticle(mc_soup) :
   print("latest news detected")
   final_string = string_builder(mc_soup) + f_o_ban(mc_soup)
   image_dict = get_images(mc_soup)
