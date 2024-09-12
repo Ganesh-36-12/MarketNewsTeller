@@ -54,7 +54,7 @@ def string_builder(news):
         final_string += 'No news update'
     return final_string
 
-
+emoji_list = ['🌄', '🌅', '🌇' , '🌻', '☀️', '🌞']
 url = f"https://www.business-standard.com/markets/news"
 news_list = website(url)
     
