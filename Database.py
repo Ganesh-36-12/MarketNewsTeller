@@ -74,6 +74,7 @@ def insert_data_into_db(table_name,data_list):
         print("string avoided")
       else:
         data = (data_list[0],)
+        print("data inserted: ",data_list[0])
     cursor.execute(insert_command,data)
     conn.commit()
   except Exception as e:
