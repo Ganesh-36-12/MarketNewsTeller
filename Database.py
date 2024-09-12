@@ -68,8 +68,10 @@ def insert_data_into_db(table_name,data_list):
       data = (data_list[0],)
     elif table_name.lower() == "scraped" or table_name.lower() == "bs_scraped":
       insert_command = f"INSERT INTO {table_name} (NEWS) VALUES(?);"
-      if data_list[0].startswith("Stock Market LIVE Updates:"):
+      O_N = data_list[0].lower()
+      if O_N.startswith("stock market"):
         data = (data_list[1],)
+        print("string avoided")
       else:
         data = (data_list[0],)
     cursor.execute(insert_command,data)
