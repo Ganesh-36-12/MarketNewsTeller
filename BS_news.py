@@ -1,7 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 from datetime import datetime , timedelta
-from Tele import send_msg
+from Tele import send_msg,send_styled_msg
 from Database import *
 
 raw_time = datetime.utcnow()+timedelta(hours=5,minutes=30)
@@ -54,10 +54,13 @@ def string_builder(news):
         final_string += 'No news update'
     return final_string
 
-emoji_list = ['🌄', '🌅', '🌇' , '🌻', '☀️', '🌞']
+morning_emoji_list = ['🌄', '🌅', '🌇' , '🌻', '☀️', '🌞']
 url = f"https://www.business-standard.com/markets/news"
 news_list = website(url)
-    
+
+if current_hour == "09 AM":
+  greeting = "*Good morning* " + random.choice(morning_emoji_list)
+  send_styled_msg(greeting,"Business standard")
 
 text = string_builder(news_list)
 print(text)
