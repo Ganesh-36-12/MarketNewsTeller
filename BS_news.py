@@ -1,4 +1,5 @@
 import requests
+import random
 from bs4 import BeautifulSoup
 from datetime import datetime , timedelta
 from Tele import send_msg,send_styled_msg
