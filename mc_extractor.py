@@ -94,7 +94,7 @@ def string_builder(soup):
   final += content_dict["bank_nifty"]["support"] + "\n\n"
   return final
 
-if todayArticle(mc_soup) :
+if todayArticle:
   print("latest news detected")
   final_string = string_builder(mc_soup) + f_o_ban(mc_soup)
   image_dict = get_images(mc_soup)
