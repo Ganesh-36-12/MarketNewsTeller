@@ -1,7 +1,7 @@
 name: Send nse_data
 'on':
   schedule:
-    - cron: '30 15 * * mon-fri'
+    - cron: '0 4 * * mon-fri'
 jobs:
   build:
     runs-on: ubuntu-latest
