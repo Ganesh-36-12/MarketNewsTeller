@@ -2,7 +2,7 @@ name: run bs_news.py
 'on':
   workflow_dispatch: null
   schedule:
-    - cron: 30 3-13 * * mon-fri
+    - cron: 30 3-12 * * mon-fri
 jobs:
   build:
     runs-on: ubuntu-latest
