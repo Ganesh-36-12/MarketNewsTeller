@@ -1,13 +1,34 @@
 import os
 import time
 import glob
-from Tele import *
+import json
+import requests
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+
+
+def send_photo(data_dict,fromfile):
+    api = os.environ["API_KEY"]
+    base_url = f"https://api.telegram.org/bot{api}"
+    p_url = f'{base_url}/sendPhoto'
+    for k,v in data_dict.items():
+        p_path = v
+        with open(p_path, 'rb') as photo:
+          # Prepare the payload
+          payload = {
+              'chat_id': -4590021123,
+              'caption': k
+          }
+          files = {
+              'photo': photo
+          }
+          response = requests.post(p_url, data=payload, files=files)
+          print(response.json())
+    print("message sent from",fromfile)
 
 login_url = 'https://opstra.definedge.com/ssologin'
 
@@ -56,10 +77,11 @@ try:
     time.sleep(2)
 
     def get_image(filename):
-      svg_element = driver.find_element(By.CSS_SELECTOR,"svg.highcharts-root")
-      driver.set_window_size(750,800)
-      time.sleep(2)
-      svg_element.screenshot(f"{filename}.png")
+        svg_element = driver.find_element(By.CSS_SELECTOR,"svg.highcharts-root")
+        driver.set_window_size(750,800)
+        time.sleep(2)
+        os.chdir()
+        svg_element.screenshot(f"{filename}.png")
 
     def ticker_selector(text):
       option_selector_template = """
@@ -87,10 +109,13 @@ try:
     for i in png_f:
       f_name = i.rstrip(".png")
       img_dict[f_name]=i
-    print(os.getcwd())
     send_photo(img_dict,"Openinterest")
 except Exception as e:
     print(f"An error occurred: {e}")
 
 finally:
     driver.quit()
+    png_f= (glob.glob("*.png"))
+    for file in png_f:
+        os.remove(file)
+        print(f'Removed file: {file}')
