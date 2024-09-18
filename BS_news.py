@@ -19,6 +19,7 @@ def website(site_url):
       'User-Agent': "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.135 Safari/537.36 Edge/12.246"
       }
     old_news = fetch_old_news("BS_SCRAPED")
+    print("Old news: ",old_news)
     r = requests.get(url=site_url,headers=headers)
     status = r.status_code
     if status ==200:
