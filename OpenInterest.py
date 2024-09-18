@@ -87,6 +87,7 @@ try:
     for i in png_f:
       f_name = i.rstrip(".png")
       img_dict[f_name]=i
+    print(os.getcwd())
     send_photo(img_dict,"Openinterest")
 except Exception as e:
     print(f"An error occurred: {e}")
