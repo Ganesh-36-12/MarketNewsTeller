@@ -22,6 +22,8 @@ jobs:
           PYTHONUNBUFFERED: "1"
           API_KEY: '${{ secrets.API_KEY }}'
           GROUP_ID: '${{ secrets.GROUP_ID }}'
+          OI_USERNAME: '${{ secrets.OI_USERNAME }}'
+          OI_PASSWORD: '${{ secrets.OI_PASSWORD }}'
         run: python OpenInterest.py
       - name: commit files
         run: >
