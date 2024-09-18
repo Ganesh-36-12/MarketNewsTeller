@@ -80,7 +80,6 @@ try:
         svg_element = driver.find_element(By.CSS_SELECTOR,"svg.highcharts-root")
         driver.set_window_size(750,800)
         time.sleep(2)
-        os.chdir()
         svg_element.screenshot(f"{filename}.png")
 
     def ticker_selector(text):
