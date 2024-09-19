@@ -13,6 +13,7 @@ from selenium.webdriver.support import expected_conditions as EC
 
 def send_photo(data_dict,fromfile):
     api = os.environ["API_KEY"]
+    group_id = os.environ["GROUP_ID"]
     base_url = f"https://api.telegram.org/bot{api}"
     p_url = f'{base_url}/sendPhoto'
     for k,v in data_dict.items():
@@ -20,7 +21,7 @@ def send_photo(data_dict,fromfile):
         with open(p_path, 'rb') as photo:
           # Prepare the payload
           payload = {
-              'chat_id': -4590021123,
+              'chat_id': group_id,
               'caption': k
           }
           files = {
