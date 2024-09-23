@@ -3,6 +3,7 @@ import time
 import glob
 import json
 import requests
+from Tele import meta_data_collector
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
@@ -19,17 +20,18 @@ def send_photo(data_dict,fromfile):
     for k,v in data_dict.items():
         p_path = v
         with open(p_path, 'rb') as photo:
-          # Prepare the payload
-          payload = {
+            # Prepare the payload
+            payload = {
               'chat_id': group_id,
               'caption': k
-          }
-          files = {
+            }
+            files = {
               'photo': photo
-          }
-          response = requests.post(p_url, data=payload, files=files)
-          print(response.json())
-    print("message sent from",fromfile)
+            }
+            response = requests.post(p_url, data=payload, files=files)
+            if response.status_code == 200:
+                meta_data_collector(response)
+                print(response.json())
 
 login_url = 'https://opstra.definedge.com/ssologin'
 
