@@ -3,6 +3,14 @@ import os
 import logging
 import logging.handlers
 from Database import *
+from datetime import datetime, timedelta
+
+
+class ISTFormatter(logging.Formatter):
+    def formatTime(self, record, datefmt=None):
+        # Convert the time to IST
+        record_time = datetime.fromtimestamp(record.created) + timedelta(hours=5, minutes=30)
+        return record_time.strftime('%Y-%m-%d %H:%M:%S %Z%z')
 
 def log_event(msg):
     logger = logging.getLogger(__name__)
@@ -13,7 +21,8 @@ def log_event(msg):
         backupCount=1,
         encoding="utf8",
     )
-    formatter = logging.Formatter("%(asctime)s - %(message)s")
+    
+    formatter = ISTFormatter("%(asctime)s - %(message)s")
     logger_file_handler.setFormatter(formatter)
     logger.addHandler(logger_file_handler)
     logger.info(msg)
