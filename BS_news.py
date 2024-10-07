@@ -39,7 +39,7 @@ def web_crawl(r,l_news):
             date = time_stamp[13:24]
             upload_time = time_stamp[26:35].strip()
             if date.startswith(current_date):
-                if(title==l_news) or (len(title_list)<=7):
+                if(title==l_news):
                     insert_data_into_db("BS_SCRAPED",title_list)
                     return title_list
                 else:
