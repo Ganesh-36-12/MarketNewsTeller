@@ -48,8 +48,7 @@ def web_crawl(r,l_news):
     return title_list
 
 def string_builder(news):
-    final_string = f"*{current_hour} News update*\n"
-    
+    final_string = current_hour+' News update\n'
     if news:
         for i in news:
             final_string = final_string + i +'\n\n'    
@@ -67,4 +66,4 @@ if current_hour == "09 AM":
 
 text = string_builder(news_list)
 print(text)
-send_styled_msg(text,"Business standard")
+send_msg(text,"Business standard")
