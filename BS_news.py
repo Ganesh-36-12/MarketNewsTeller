@@ -51,7 +51,7 @@ def string_builder(news):
     final_string = f"*{current_hour} News update*\n"
     
     if news:
-        for i in news[:8]:
+        for i in news:
             final_string = final_string + i +'\n\n'    
     else:
         final_string += 'No news update'
