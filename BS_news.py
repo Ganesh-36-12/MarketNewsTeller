@@ -39,7 +39,7 @@ def web_crawl(r,l_news):
             date = time_stamp[13:24]
             upload_time = time_stamp[26:35].strip()
             if date.startswith(current_date):
-                if(title==l_news):
+                if(title==l_news) or (len(title_list)<=7):
                     insert_data_into_db("BS_SCRAPED",title_list)
                     return title_list
                 else:
@@ -48,7 +48,8 @@ def web_crawl(r,l_news):
     return title_list
 
 def string_builder(news):
-    final_string = current_hour+' News update\n'
+    final_string = f"*{current_hour} News update*\n"
+    
     if news:
         for i in news:
             final_string = final_string + i +'\n\n'    
@@ -66,4 +67,4 @@ if current_hour == "09 AM":
 
 text = string_builder(news_list)
 print(text)
-send_msg(text,"Business standard")
+send_styled_msg(text,"Business standard")
