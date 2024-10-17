@@ -4,8 +4,18 @@ import json
 from Tele import send_msg
 
 headers = {
-      'User-Agent': "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.135 Safari/537.36 Edge/12.246"
-      }
+    'Connection': 'keep-alive',
+    'Cache-Control': 'max-age=0',
+    'DNT': '1',
+    'Upgrade-Insecure-Requests': '1',
+    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.79 Safari/537.36',
+    'Sec-Fetch-User': '?1',
+    'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
+    'Sec-Fetch-Site': 'none',
+    'Sec-Fetch-Mode': 'navigate',
+    'Accept-Encoding': 'gzip, deflate, br',
+    'Accept-Language': 'en-US,en;q=0.9,hi;q=0.8',
+}
 def fiidii():
   site_url = 'https://www.nseindia.com/api/fiidiiTradeReact'
   r = requests.get(url=site_url,headers=headers).json()
@@ -31,10 +41,11 @@ def india_VIX():
   diff = last - float(vix_data['open'])
   vix_msg= (f"India VIX : {last:.2f} {diff:.2f} ({vix_data['percentChange']}%)")
   return vix_msg
-  
-    
-msg = fiidii()
-vix = india_VIX()
 
-send_msg(msg,"nse_data.py")
-send_msg(vix,"nse_data.py")
+try:
+      msg = fiidii()
+      vix = india_VIX()
+      send_msg(msg,"nse_data.py")
+      send_msg(vix,"nse_data.py")
+except:
+      print("error occured")
