@@ -15,12 +15,14 @@ current_date = raw_time.strftime("%d %b %Y")
 
 
 def website(site_url):
-    headers = {
-      'User-Agent': "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.135 Safari/537.36 Edge/12.246"
-      }
+    user_agents_list = [
+    'Mozilla/5.0 (iPad; CPU OS 12_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148',
+    'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.83 Safari/537.36',
+    'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.51 Safari/537.36'
+    ]
     old_news = fetch_old_news("BS_SCRAPED")
     print("Old news: ",old_news)
-    r = requests.get(url=site_url,headers=headers)
+    r = requests.get(url=site_url,headers={'User-Agent': random.choice(user_agents_list)})
     status = r.status_code
     print(status)
     if status ==200:
