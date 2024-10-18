@@ -2,7 +2,7 @@ name: OpenInterest Extractor
 'on':
   workflow_dispatch: null
   schedule:
-    - cron: '30 4 * * mon-fri'
+    - cron: '15 4 * * mon-fri'
 jobs:
   build:
     runs-on: ubuntu-latest
