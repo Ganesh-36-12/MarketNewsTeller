@@ -22,6 +22,7 @@ def website(site_url):
     print("Old news: ",old_news)
     r = requests.get(url=site_url,headers=headers)
     status = r.status_code
+    print(status)
     if status ==200:
         list_1 = web_crawl(r,old_news)
         return list_1
