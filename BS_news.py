@@ -45,6 +45,7 @@ def web_crawl(r,l_news):
                 else:
                      title_list.append(title)
     insert_data_into_db("BS_SCRAPED",title_list)
+    print("No of news: ",len(title_list))
     return title_list
 
 def string_builder(news):
