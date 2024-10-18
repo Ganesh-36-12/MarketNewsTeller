@@ -24,10 +24,11 @@ def website(site_url):
     print("Old news: ",old_news)
     r = requests.get(url=site_url,headers={'User-Agent': random.choice(user_agents_list)})
     status = r.status_code
-    print(status)
     if status ==200:
         list_1 = web_crawl(r,old_news)
         return list_1
+    else:
+        print("Status code",status)
 
 def web_crawl(r,l_news):
     soup = BeautifulSoup(r.content, 'html.parser')
@@ -70,4 +71,4 @@ if current_hour == "09 AM":
 
 text = string_builder(news_list)
 print(text)
-# send_msg(text,"Business standard")
+send_msg(text,"Business standard")
