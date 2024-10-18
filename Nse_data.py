@@ -44,8 +44,21 @@ def india_VIX():
 
 try:
       msg = fiidii()
-      vix = india_VIX()
       send_msg(msg,"nse_data.py")
+except:
+    try:
+        print("FII DII Retrying....")
+        msg = fiidii()
+        send_msg(msg,"nse_data.py")
+    except:
+        print(" FII DII retry failed")
+try:
+      vix = india_VIX()
       send_msg(vix,"nse_data.py")
 except:
-      print("error occured")
+    try:
+      print("VIX Retrying....")
+      vix = india_VIX()
+      send_msg(vix,"nse_data.py")
+    except:
+        print("VIX retry failed")
