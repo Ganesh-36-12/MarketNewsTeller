@@ -68,4 +68,4 @@ if current_hour == "09 AM":
 
 text = string_builder(news_list)
 print(text)
-send_msg(text,"Business standard")
+# send_msg(text,"Business standard")
