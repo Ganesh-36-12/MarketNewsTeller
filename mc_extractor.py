@@ -97,8 +97,8 @@ def string_builder(soup):
 try:
   print("today's link: ",mc_url)
   final_string = string_builder(mc_soup) + f_o_ban(mc_soup)
-  image_dict = get_images(mc_soup)
   send_styled_msg(final_string,"mc_extractor")
+  image_dict = get_images(mc_soup)
   send_photo(image_dict,"mc_extractor")
 except Exception as e:
   print(e)
