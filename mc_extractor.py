@@ -1,7 +1,6 @@
 
 import json
 import requests
-from fake_headers import Headers
 from bs4 import BeautifulSoup
 from datetime import date
 from Tele import *
@@ -10,11 +9,23 @@ today = date.today()
 current_date = today.strftime("%B %d, %Y")
 
 url ="https://api.moneycontrol.com/mcapi/v1/premarket/article?slug=trade-setup&limit=1"
-headers =  Headers(headers=True,os='win').generate()
+headers = {
+    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:144.0) Gecko/20100101 Firefox/144.0',
+    'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+    'Accept-Language': 'en-US,en;q=0.5',
+    'Connection': 'keep-alive',
+    'Upgrade-Insecure-Requests': '1',
+    'Sec-Fetch-Dest': 'document',
+    'Sec-Fetch-Mode': 'navigate',
+    'Sec-Fetch-Site': 'none',
+    'Sec-Fetch-User': '?1',
+    'If-None-Match': 'W/"7496-cxUlVxxa+MZPaUO9jDHj93Ds60Q"',
+    'Priority': 'u=0, i',
+}
 
 r =  requests.get(url,headers=headers)
 
-if r.status_code == 200:
+try:
   data = r.json()
   article = json.loads(data['data']['trade_setup'][0]['article_data'])
   post_url = article['posturl']
@@ -22,7 +33,8 @@ if r.status_code == 200:
   news = article['body'].replace("\r","").replace(",","")
 
   soup = BeautifulSoup(news,'html.parser')
-
+except Exception as e:
+  print(f"Excepton {e} occured ")
 
 def get_images():
   image_dict ={}
