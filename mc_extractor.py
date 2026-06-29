@@ -1,5 +1,6 @@
 
 import json
+import re
 import requests
 from bs4 import BeautifulSoup
 from datetime import date
@@ -27,18 +28,18 @@ r =  requests.get(url,headers=headers)
 
 try:
   data = r.json()
-  article = json.loads(data['data']['trade_setup'][0]['article_data'])
+  article = data['data']['trade_setup'][0]
   post_url = article['posturl']
-
+  article_data = requests.get(f"https://www.moneycontrol.com/{post_url}")
+  soup = BeautifulSoup(article_data.content,'html.parser')
   news = article['body'].replace("\r","").replace(",","")
 
-  soup = BeautifulSoup(news,'html.parser')
 except Exception as e:
   print(f"Excepton {e} occured ")
 
 def get_images():
   image_dict ={}
-  img = soup.find_all('img')
+  img = soup.find_all('img',attrs={'alt': re.compile("^Image")})[:2]
   image_dict["NIFTY 50"] = img[0].get('src')
   image_dict["Bank NIFTY"] = img[1].get('src')
   return image_dict
@@ -102,7 +103,7 @@ def string_builder():
   return final
 
 try:
-  print("today's link: ",post_url)
+  print(f"today's link: https://www.moneycontrol.com/{post_url}")
   final_string = string_builder() + f_o_ban()
   send_styled_msg(final_string,"mc_extractor")
   print(final_string)
